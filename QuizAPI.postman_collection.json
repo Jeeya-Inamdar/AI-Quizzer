@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "3787ee55-38e1-4fd7-9f02-98356d9b7f8d",
+		"name": "QuizAPI",
+		"description": "This **Postman Collection** is designed to facilitate testing and interacting with an API for managing user authentication and quiz-related operations. It includes a set of pre-configured requests that cover a range of functionalities, from user registration and login to quiz generation, submission, and history retrieval.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26999280",
+		"_collection_link": "https://galactic-flare-625364.postman.co/workspace/AI-Quizzer~238001e7-0a82-4678-8a4a-8da429238143/collection/26999280-3787ee55-38e1-4fd7-9f02-98356d9b7f8d?action=share&source=collection_link&creator=26999280"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "SIGNUP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"John Doe\",\r\n    \"password\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "- The `signUp` function allows users to register by sending a POST request with a `username` and `password` in the body.\n    \n- It checks if the `username` already exists in the database. If not, it hashes the password using `bcrypt` and stores the user data in the database.\n    \n- A response is sent back to the client indicating whether the registration was successful or not."
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"John Doe\",\r\n    \"password\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "- The `login` function authenticates the user by checking if the provided username exists in the database.\n    \n- If the username exists, it compares the provided password with the stored hashed password using `bcrypt`. If they match, a JWT token is generated and returned to the user.\n    \n- The JWT token can be used for authenticating future requests."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "QUIZ",
+			"item": [
+				{
+					"name": "GENERATE",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwOWZhMmJmZWE3NTJmNDA1MWVkMTMiLCJ1c2VybmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzMyMzUwMzQ2LCJleHAiOjE3MzIzNTM5NDZ9.UKe6QExeNuAdb2L745TApluOKfBAvdyjwfO6HXrKHS8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"grade\": \"5\",\r\n  \"subject\": \"Math\",\r\n  \"totalQuestions\": 5,\r\n  \"difficulty\": \"Medium\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/quiz/generate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"quiz",
+								"generate"
+							]
+						},
+						"description": "- The `generateQuiz` function is responsible for creating a new quiz.\n    \n- It receives parameters (`grade`, `subject`, `totalQuestions`, and `difficulty`) and uses a Groq API (assumed to be an external service) to generate quiz questions.\n    \n- A new `Quiz` object is created and saved in the database, and the generated quiz is returned in the response."
+					},
+					"response": []
+				},
+				{
+					"name": "SUBMIT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwOGQ0OTM1YWM0YWQzNzI2N2NiNTYiLCJ1c2VybmFtZSI6InZpbmF5YWsxMjMiLCJpYXQiOjE3MzIyODM3NTYsImV4cCI6MTczMjI4NzM1Nn0.LuTckAW_0eOBh1D3HZ87cqqJKY991UE3uJjyCblPBhg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"67408d4935ac4ad37267cb56\",\r\n    \"quizId\" : \"674083448153f4c0ddbd4257\",\r\n    \"answers\" : [1,2,1,0,1] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/quiz/submit",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"quiz",
+								"submit"
+							]
+						},
+						"description": "- The `submitQuiz` function handles the submission of quiz answers.\n    \n- It receives the `userId`, `quizId`, and the `answers` array.\n    \n- The function checks if the answers match the quiz's total number of questions.\n    \n- It then evaluates the answers using AI (likely a function like `evaluateQuizWithAI`) and calculates the score.\n    \n- A new `Submission` object is created with the answers, score, and user info, and is saved in the database. The score is sent in the response."
+					},
+					"response": []
+				},
+				{
+					"name": "HISTORY",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwOGQ0OTM1YWM0YWQzNzI2N2NiNTYiLCJ1c2VybmFtZSI6InZpbmF5YWsxMjMiLCJpYXQiOjE3MzIyODQ1MDgsImV4cCI6MTczMjI4ODEwOH0.Fj-2w0nMGZ1A_gXAP5Kukatp5p7On6BUCjSvaJwe9zY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/quiz/history?userId=67408d4935ac4ad37267cb56",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"quiz",
+								"history"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "67408d4935ac4ad37267cb56"
+								}
+							]
+						},
+						"description": "- The `getQuizHistory` function allows users to retrieve their quiz submission history.\n    \n- It filters submissions based on the provided `userId` and optional parameters like `grade`, `subject`, and `score range`.\n    \n- The results are sent back in the response with all quizzes that match the filter criteria."
+					},
+					"response": []
+				},
+				{
+					"name": "RETRY",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwOGQ0OTM1YWM0YWQzNzI2N2NiNTYiLCJ1c2VybmFtZSI6InZpbmF5YWsxMjMiLCJpYXQiOjE3MzIyODQ1MDgsImV4cCI6MTczMjI4ODEwOH0.Fj-2w0nMGZ1A_gXAP5Kukatp5p7On6BUCjSvaJwe9zY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quizId\" : \"67402edacd8e3d7d6d819ad7\",\r\n    \"userId\" : \"67408d4935ac4ad37267cb56\",\r\n    \"answers\" : [0,1,1,0]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/quiz/retry",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"quiz",
+								"retry"
+							]
+						},
+						"description": "- The `retryQuiz` function allows users to retry a quiz.\n    \n- The user provides the `quizId`, `userId`, and new answers.\n    \n- The original quiz is retrieved from the database, and the new answers are evaluated using AI.\n    \n- A new submission is created for this retry attempt, and the score is returned."
+					},
+					"response": []
+				},
+				{
+					"name": "GetHint",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwOWZhMmJmZWE3NTJmNDA1MWVkMTMiLCJ1c2VybmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzMyMzUwMzQ2LCJleHAiOjE3MzIzNTM5NDZ9.UKe6QExeNuAdb2L745TApluOKfBAvdyjwfO6HXrKHS8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/quiz/hint",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"quiz",
+								"hint"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

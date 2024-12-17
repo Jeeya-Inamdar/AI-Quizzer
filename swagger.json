@@ -1,0 +1,13 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "AI Quizzer API",
+      "description": "API documentation for the AI Quizzer app"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {}
+  }
+  
