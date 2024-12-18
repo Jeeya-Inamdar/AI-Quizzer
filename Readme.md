@@ -46,13 +46,13 @@ A robust and scalable Quiz API built with Node.js, Express.js, and MongoDB that 
 
 ### Endpoints Testing
 
-![Endpoint testing 1](../QuizAPI/pics/1.jpeg)
+![Endpoint testing 1](pics/1.jpeg)
 
-![Endpoint testing 2](../QuizAPI/pics/3.jpeg)
+![Endpoint testing 2](pics/3.jpeg)
 
 ### Redis Caching
 
-![Redis caching](../QuizAPI/pics/2.jpeg)
+![Redis caching](pics/2.jpeg)
 
 ## 🚀 Getting Started
 
